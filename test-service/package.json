@@ -1,0 +1,22 @@
+{
+  "name": "test-service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@libs/prismaorm": "*",
+    "@libs/test": "*",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "graphql": "^16.8.1",
+    "graphql-yoga": "^5.3.1",
+    "test": "^1.0.0"
+  }
+}
