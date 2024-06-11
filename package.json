@@ -5,6 +5,7 @@
   "scripts": {
     "install-all": "npm install --workspaces  --if-present",
     "start": "npm run start -w test-service",
+    "start:app": "npm run start -w app-service",
     "clean-install": "rm -rf node_modules package-lock.json && find packages -name 'node_modules' -type d -exec rm -rf {} + && find packages -name 'package-lock.json' -type f -exec rm {} + && npm install"
   },
   "keywords": [],
@@ -14,6 +15,7 @@
   "workspaces": [
     "test-service",
     "libs/prismaorm",
-    "libs/test"
+    "libs/test",
+    "app-service"
   ]
 }
