@@ -1,0 +1,36 @@
+name: Deploy to Azure Web App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v3
+
+      - name: Setup Node Js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Merge shared libs with service package and create zip file
+        run: |
+          mkdir -p deployment_packages
+          cp -r libs/* deployment_packages/
+          cp -r app-service/* deployment_packages/
+          cd deployment_packages && zip -r ../app-service.zip . -x '*.git*' && cd ..
+        working-directory: ${{ github.workspace }}
+
+      - name: Deploy to Azure
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: app-poc-service
+          publish-profile: ${{ secrets.APP_PUBLISH_PROFILE }}
+          package: ${{ github.workspace }}/app-service.zip
