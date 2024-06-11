@@ -23,8 +23,7 @@ jobs:
       - name: Merge shared libs with service package and create zip file
         run: |
           mkdir -p deployment_packages
-          cp -r libs/* deployment_packages/
-          cp -r test-service/* deployment_packages/
+          rsync -av --exclude={'app-service'} ./ deployment_packages/
           cd deployment_packages && zip -r ../test-service.zip . -x '*.git*' && cd ..
         working-directory: ${{ github.workspace }}
 
